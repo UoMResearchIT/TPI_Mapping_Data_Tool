@@ -279,14 +279,14 @@ def main():
             st.session_state.df = df
 
     def button3_click():
-        st.session_state.selected_button = "2024 MCA Scorecard data"
+        st.session_state.selected_button = "2025 MCA Scorecard data"
         st.session_state.dataset_info = "This dataset includes scorecards for all Mayoral Combined Authorities (MCA) in the United Kingdom. These scorecards indicate how well each MCA area is performing compared to the UK weighted mean of all ITL1 regions in the UK for a broad set of indicators, including productivity performance and drivers of productivity according to the categories: Business Performance; Skills & Training; Health & Wellbeing, and, Investment, infrastructure & Connectivity."
         st.session_state.link = "https://lab.productivity.ac.uk/data/productivity-datasets/MCA-scorecards/"
-        df = pd.read_csv("examples/MCA-ITL3_scorecards_data_file_modified.csv")
+        df = pd.read_csv("examples/MCA_Scorecard_map_tool_data.csv")
         if not df.empty:
                 fig = True
                 mapname = df.columns[1:].tolist()
-                levels = []
+                levels = ['MCA', 'ITL3', 'National']
                 st.session_state.levels = levels
                 st.session_state.level = 'MCA'
                 st.session_state.fig = fig
@@ -294,14 +294,14 @@ def main():
                 st.session_state.df = df
 
     def button4_click():
-        st.session_state.selected_button = "2024 ITL3 Scorecard data"
+        st.session_state.selected_button = "2025 ITL3 Scorecard data"
         st.session_state.dataset_info = "The TPI UK ITL3 scorecards are produced to assess the United Kingdom's subregional productivity performance through a range of productivity indicators and drivers. These scorecards include data for 179 regions, defined by the International Territorial Level 3 (ITL3). In addition data is available for 12 aggregate ITL1 geographies, covering the whole of the United Kingdom. Data is available for three indicators of productivity, and 12 productivity drivers."
         st.session_state.link = "https://lab.productivity.ac.uk/data/productivity-datasets/ITL3-scorecards/"
-        df = pd.read_csv("examples/ITL3_scorecards_data_file_modified.csv")
+        df = pd.read_csv("examples/ITL3_Scorecard_map_tool_data.csv")
         if not df.empty:
             fig = True
             mapname = df.columns[1:].tolist()
-            levels = []
+            levels = ['ITL3', 'ITL1', 'National']
             st.session_state.levels = levels
             st.session_state.level = 'ITL3'
             st.session_state.fig = fig
@@ -390,8 +390,8 @@ def main():
         # Set button types
         button1_type = 'primary' if st.session_state.selected_button == "Subregional productivity data - local authoritites 2023" else 'secondary'
         button2_type = 'primary' if st.session_state.selected_button == "2025 ITL1 Scorecard Data" else 'secondary'
-        button3_type = 'primary' if st.session_state.selected_button == "2024 MCA Scorecard data" else 'secondary'
-        button4_type = 'primary' if st.session_state.selected_button == "2024 ITL3 Scorecard data" else 'secondary'
+        button3_type = 'primary' if st.session_state.selected_button == "2025 MCA Scorecard data" else 'secondary'
+        button4_type = 'primary' if st.session_state.selected_button == "2025 ITL3 Scorecard data" else 'secondary'
         button5_type = 'primary' if st.session_state.selected_button == "TPI MCA Digitalisation and Innovation Indicators" else 'secondary'
         button6_type = 'primary' if st.session_state.selected_button == "2025 ITL2 Regional and Global Trade" else 'secondary'
         button7_type = 'primary' if st.session_state.selected_button == "Subnational trade balance data 2022" else 'secondary'
