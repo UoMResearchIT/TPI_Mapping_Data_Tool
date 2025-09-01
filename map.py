@@ -62,7 +62,7 @@ def make_choropleths(data, map_df, geo_level, colorscale=sequential.Viridis[::-1
     
     column = data.columns[index]
     temp = data[column]
-    temp = (temp.astype(str).str.replace(r"[^\d.-]", "", regex=True))
+    temp = (temp.astype(str).str.replace(r"[£$€,]", "", regex=True))
     temp = pd.to_numeric(temp, errors="coerce")
 
     hovertemplate = '%{text}<br>' + column + f': {unit}'+'%{customdata[0]:' + data_format + '}<extra></extra>'

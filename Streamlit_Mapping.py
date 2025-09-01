@@ -491,7 +491,6 @@ def main():
                 valid_input = False
             if valid_input:
                 df = df.rename(columns={df.columns[st.session_state.index + 1]: new_title})
-                
             if mapname != list(df.columns[1:]):
                 st.session_state.df = df
                 st.session_state.mapname = list(df.columns[1:])
@@ -553,11 +552,14 @@ def main():
     # Colour change options
     discrete_colours = st.sidebar.toggle(label='Use discrete colouring')
     num_colours = st.sidebar.slider("Number of Colours", min_value=2, max_value=6, value=5)
-
+    
     if not df.empty and 'index' in st.session_state and mapname:
-        df[mapname[st.session_state.index]] = (df[mapname[st.session_state.index]].astype(str).str.replace(r"[^\d.-]", "", regex=True))
+        df[mapname[st.session_state.index]] = (
+            df[mapname[st.session_state.index]]
+            .astype(str)
+            .str.replace(r"[£$€,]", "", regex=True)
+        )
         df[mapname[st.session_state.index]] = pd.to_numeric(df[mapname[st.session_state.index]], errors="coerce")
-
     # Colour pickers
     colours = []
     # Create two columns in the sidebar using container
@@ -653,7 +655,6 @@ def main():
                             with colour_column3:
                                 thresholds[i] = st.number_input('<', float(thresholds[i-1] + step/10), value=float(thresholds[i]), step=step, key=f'+input{i}', label_visibility="hidden", format=f'%.{dp}f')
                 colours.append(colour)
-                # print(float(thresholds[i]))
             custom_colour_scale = colours
         else:
             thresholds=[]
@@ -739,6 +740,7 @@ def main():
             st.rerun()
         if query_params['preset'] == 'ln_average_growth':
             df = pd.read_csv("examples/ITL3_LN_Average_Growth.csv")
+
             fig = True
             mapname = df.columns[1:].tolist()
             levels = []
